@@ -2,8 +2,10 @@ package controller;
 
 import java.util.Scanner;
 
+import model.data_structures.ArregloDinamico;
 import model.data_structures.ILista;
 import model.logic.Modelo;
+import model.logic.Reproduccion;
 import view.View;
 
 public class Controller {
@@ -38,17 +40,48 @@ public class Controller {
 				switch(option)
 				{
 					case 1:
-						try
-						{
-							modelo.cargarDatosArbol();
-						}
-						catch(Exception e)
-						{
-							e.printStackTrace();
-						}
+						String carac = lector.next();
+						Double max = lector.nextDouble();
+						Double min = lector.nextDouble();
+						String[] valores =modelo.req1(carac, min, max).split("-");
+						view.printMessage("Numero de reproducciones en el rango: "+valores[0]);
+						view.printMessage("Numero de artistas unicos en el rango: "+valores[1]);
 						break;
-							
 					case 2:
+						Double maxEn = lector.nextDouble();
+						Double minEn = lector.nextDouble();
+						Double maxDan = lector.nextDouble();
+						Double minDan = lector.nextDouble();
+						ILista<String> pistas = modelo.req2(minEn, maxEn, minDan, maxDan);
+						view.printMessage("Numero pistas unicas: "+ pistas.size());
+						break;
+						
+					case 3: 
+						Double maxTem = lector.nextDouble();
+						Double minTem = lector.nextDouble();
+						Double maxIns = lector.nextDouble();
+						Double minIns = lector.nextDouble();
+						ILista<String> pistas3 = modelo.req3(minTem, maxTem, minIns, maxIns);
+						view.printMessage("Numero pistas unicas: "+ pistas3.size());
+						break;
+					
+					case 4:
+						ILista<String> generos = new ArregloDinamico<>(3);
+						boolean termino = false;
+						while(!termino)
+						{
+							String genero = lector.next();
+							if(genero.contains("termino"))
+								termino = true;
+							else
+								generos.addLast(genero);
+						}
+						modelo.req4(generos);
+						break;
+						
+					case 5: 
+						break;
+					case 6:
 						view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 						lector.close();
 						fin = true;
