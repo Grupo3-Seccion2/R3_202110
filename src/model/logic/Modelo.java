@@ -333,9 +333,10 @@ public class Modelo
 		return reproduccionesGeneros;
 	}
 	
-	public void req5(Date horaMax, Date horaMin)
+	public ILista<Pista>req5(Date horaMax, Date horaMin)
 	{
 		ILista<ILista<Reproduccion>> masEscuchado = null;
+		int total = 0;
 		String generoMasEscuchado = null;
 		int max = 0;
 		RedBlackTree<Double, ILista<Reproduccion>> arbolTempo = crearArbolSegunCaracteristica(eventosDeEscucha,"tempo");
@@ -350,8 +351,9 @@ public class Modelo
 			for(int j = 1; j<= valoresEnHora.size();j++)
 			{
 				c+= valoresEnHora.getElement(j).size();
+				
 			}
-			
+			total+=c;
 			if(c>max)
 			{
 				masEscuchado = valoresEnHora;
@@ -359,16 +361,40 @@ public class Modelo
 				max = c;
 			}	
 		}
-		System.out.println(generoMasEscuchado);
-		System.out.println(max);
-		ILista<Reproduccion> reproduccionesMasEscuchadas = new ArregloDinamico<>(max);
+		System.out.println("Hay un total de "+ total+" reproducciones entre las horas "+ horaMin+" y "+ horaMax);
+		System.out.println("El genero mas esuchado es " +generoMasEscuchado+ " con un total de reproducciones de " + max);
+		TablaHashSeparateChaining<String, Pista> pistasUnicas = new TablaHashSeparateChaining<>(max/5, 5);
 		for(int i = 1; i <= masEscuchado.size();i++)
 		{
 			for(int j = 1; j <=masEscuchado.getElement(i).size();j++)
 			{
-					reproduccionesMasEscuchadas.addLast(masEscuchado.getElement(i).getElement(j));
+					Reproduccion actualRep = masEscuchado.getElement(i).getElement(j);
+					String llave = actualRep.darTrackId();
+					Pista esta = pistasUnicas.get(llave);
+					if(esta!=null)
+					{
+						if(actualRep.daravgVader()!=0.0)
+						{
+							esta.sumarHashTag(actualRep.daravgVader());
+							pistasUnicas.put(llave, esta);
+						}
+						
+					}
+					else
+					{
+						Pista aAgregar = new Pista(llave);
+						if(actualRep.daravgVader()!=0.0)
+						{
+							aAgregar.sumarHashTag(actualRep.daravgVader());
+							pistasUnicas.put(llave,aAgregar);
+						}
+						
+					}
 			}
 		}
+		ILista<Pista> pis = pistasUnicas.valueSet();
+		System.out.println(generoMasEscuchado+ " tiene un total de " +pis.size()+" pistasUnicas");
+		return pis;
 		
 	}
 }

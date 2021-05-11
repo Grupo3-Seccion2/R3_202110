@@ -6,6 +6,7 @@ import java.util.Scanner;
 import model.data_structures.ArregloDinamico;
 import model.data_structures.ILista;
 import model.logic.Modelo;
+import model.logic.Pista;
 import model.logic.Reproduccion;
 import view.View;
 
@@ -144,12 +145,18 @@ public class Controller {
 						break;
 						
 					case 5: 
+						view.printMessage("Para realizar el requerimiento es necesario ingresar los siguientes datos. Como se indica a continuacion: \n - El valor minimo de la hora del dia (En formato de 24 horas como el siguiente ejemplo 13:20:00");
 						SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
 						String minHora = lector.next();
+						view.printMessage("- El valor maximo de la hora del dia (En formato de 24 horas como el siguiente ejemplo 13:20:00");
 						String maxHora = lector.next();
 						try
 						{
-							modelo.req5(formato.parse(maxHora), formato.parse(minHora));
+							ILista<Pista> pistasUnicas = modelo.req5(formato.parse(maxHora), formato.parse(minHora));
+							for(int i = 1;i<=10;i++)
+							{
+								view.printMessage("Track "+i+": con "+pistasUnicas.getElement(i).darNumHashTags()+" hashtags con un VADER avg de "+pistasUnicas.getElement(i).daravgVader());
+							}
 						}
 						catch(Exception e)
 						{

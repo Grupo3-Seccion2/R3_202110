@@ -128,8 +128,19 @@ public class TablaHashSeparateChaining<K extends Comparable<K>, V  extends Compa
 
 	@Override
 	public ILista<V> valueSet() {
-		// TODO Auto-generated method stub
-		return null;
+		ILista<V> valores = new ArregloDinamico<>(tamanoActual);
+		for(int i =1; i<=listaNodos.size();i++)
+		{
+			ILista<NodoTS<K, V>> actual =listaNodos.getElement(i);
+			if(actual!=null)
+			{
+				for(int j = 1;j<= actual.size();j++)
+				{
+					valores.addLast(actual.getElement(j).getValue());
+				}
+			}
+		}
+		return valores ;
 	}
 	
 	public void changeValue(K key, V value)
