@@ -66,7 +66,11 @@ public class Controller {
 						break;
 					
 					case 4:
+<<<<<<< HEAD
 						String[] generos = new String[10];
+=======
+						ILista<String> generos = new ArregloDinamico<>(3);
+>>>>>>> 0d91d5ab1d496082670ff8973dd4363771d02749
 						boolean termino = false;
 						while(!termino)
 						{
@@ -74,10 +78,14 @@ public class Controller {
 							if(genero.contains("termino"))
 								termino = true;
 							else
+<<<<<<< HEAD
 								for(int i = 0; i < generos.length; i++)
 								{
 									generos[i] = genero;
 								}
+=======
+								generos.addLast(genero);
+>>>>>>> 0d91d5ab1d496082670ff8973dd4363771d02749
 						}
 						modelo.req4(generos);
 						break;
