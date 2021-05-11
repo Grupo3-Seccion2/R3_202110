@@ -111,8 +111,19 @@ public class TablaHashSeparateChaining<K extends Comparable<K>, V  extends Compa
 	@Override
 	public ILista<K> keySet() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ILista<K> llaves = new ArregloDinamico<>(tamanoActual);
+		for(int i =1; i<=listaNodos.size();i++)
+		{
+			ILista<NodoTS<K, V>> actual =listaNodos.getElement(i);
+			if(actual!=null)
+			{
+				for(int j = 1;j<= actual.size();j++)
+				{
+					llaves.addLast(actual.getElement(j).getKey());
+				}
+			}
+		}
+		return llaves ;
 	}
 
 	@Override
@@ -147,10 +158,10 @@ public class TablaHashSeparateChaining<K extends Comparable<K>, V  extends Compa
 	 //Rehash
 	private void rehash()
 	{
-		System.out.println("Rehash");
+		
 		ILista<NodoTS<K,V>> nodos = darNodos();
 		tamanoActual = 0;
-		tamanoTabla = nextPrime(tamanoTabla);
+		tamanoTabla = nextPrime(tamanoTabla*2);
 		listaNodos = new ArregloDinamico<>(tamanoTabla);
 		
 		for(int i = 1; i<= tamanoTabla;i++)

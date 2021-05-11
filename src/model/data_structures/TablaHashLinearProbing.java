@@ -227,7 +227,7 @@ public class TablaHashLinearProbing<K extends Comparable<K>, V extends Comparabl
 	{
 		ILista<NodoTS<K,V>> nodos = darNodos();
 		tamanoActual = 0;
-		tamanoTabla = nextPrime(tamanoTabla);
+		tamanoTabla = nextPrime(tamanoTabla*2);
 		listaNodos = new ArregloDinamico<>(tamanoTabla);
 		
 		for(int i = 1; i<= tamanoTabla;i++)

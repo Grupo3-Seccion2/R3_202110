@@ -100,7 +100,7 @@ public class Lista <T extends Comparable<T>> implements ILista<T>
 			first = nuevoPrimero;
 		}	
 		size--;
-		return eliminado.darElemento() ;
+		return eliminado ==null?null:eliminado.darElemento() ;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package model.logic;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reproduccion implements Comparable<Reproduccion>
@@ -33,7 +34,11 @@ public class Reproduccion implements Comparable<Reproduccion>
 	
 	private Double llaveArbol;
 	
-	public Reproduccion(double instrumentalness,double liveness,double speechiness, double danceability,double valence,double loudness,double tempo,double acousticness,double energy,double mode,double key,String id,String idArtist,String idTrack,String idUser,Date dateCreation)
+	private Date horaCreacion;
+	
+	private double avgVaderHashTag;
+	
+	public Reproduccion(double instrumentalness,double liveness,double speechiness, double danceability,double valence,double loudness,double tempo,double acousticness,double energy,double mode,double key,String id,String idArtist,String idTrack,String idUser,Date dateCreation, Date horaCreacion, double avgVaderHashTag)
 	{
 		this.instrumentalness= instrumentalness;
 		this.liveness= liveness;
@@ -52,6 +57,8 @@ public class Reproduccion implements Comparable<Reproduccion>
 		this.idTrack= idTrack;
 		this.idUser=idUser;
 		this.dateCreation= dateCreation;
+		this.horaCreacion = horaCreacion;
+		this.avgVaderHashTag =avgVaderHashTag;
 		
 	}
 	public double darInstrumentalness()
@@ -180,10 +187,18 @@ public class Reproduccion implements Comparable<Reproduccion>
 		}
 	}
 
+	public Date darHora()
+	{
+		return horaCreacion;
+	}
+	public double daravgVader()
+	{
+		return avgVaderHashTag;
+	}
 	@Override
 	public int compareTo(Reproduccion o) 
 	{
 		
-		return this.id.compareTo(o.id) ;
+		return this.idTrack.compareTo(o.idTrack) ;
 	}
 }
